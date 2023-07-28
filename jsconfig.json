@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "esModuleInterop": true,
+    "moduleResolution": "Node"
   },
   "include": ["src"]
 }
