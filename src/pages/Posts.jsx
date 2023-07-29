@@ -22,6 +22,7 @@ const Posts = () => {
   }, []);
   return (
     <Section title="Posts">
+      {isLoading && <div>LOADING ...</div>}
       <PostsList posts={posts} />
     </Section>
   );
