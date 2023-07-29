@@ -1,20 +1,18 @@
+import { Layout } from 'Layout/Layout';
+import NotFoundpage from 'pages/Notfoundpage';
+import Posts from 'pages/Posts';
+import { Route, Routes } from 'react-router-dom';
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Hello world!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Posts />} />
+        </Route>
+        <Route path="*" element={<NotFoundpage />} />
+      </Routes>
+    </>
   );
 }
 
