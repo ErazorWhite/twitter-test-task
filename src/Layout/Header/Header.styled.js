@@ -6,13 +6,15 @@ export const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 10px 40px;
+  padding: 10px 20px;
   background-color: var(--secondary-dark);
   min-height: 60px;
   min-width: 320px;
+  z-index: 400;
 
   @media (min-width: 768px) {
     justify-content: center;
+    padding: 10px 40px;
   }
 `;
 
