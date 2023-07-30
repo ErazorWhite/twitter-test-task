@@ -1,7 +1,9 @@
 import { AiOutlinePlusSquare } from 'react-icons/ai';
-import { Input, Ul, Li, Button } from './Constols.styled';
+import { Input, Ul, Li, Button } from './Controls.styled';
 import cssVar from 'utilities/cssVarGetter';
 import Select from 'react-select';
+import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 
 const options = [
   { value: 'newFirst', label: 'New first' },
@@ -9,13 +11,27 @@ const options = [
 ];
 
 export const Controls = ({ isDesktop }) => {
+  const [isProfilePage, setIsProfilePage] = useState(false);
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
+
+  useEffect(() => {
+    setIsProfilePage(location.pathname.startsWith('/profile'));
+  }, [location]);
+
   return (
     <>
       <Ul>
-        <Li>
-          <label htmlFor="username">Username</label>
-          <Input type="text" placeholder="@UserName" name="username" />
-        </Li>
+        {isProfilePage ? (
+          <Li>
+            <Link to={backLinkLocationRef.current}>← Go Back</Link>
+          </Li>
+        ) : (
+          <Li>
+            <label htmlFor="username">Username</label>
+            <Input type="text" placeholder="@UserName" name="username" />
+          </Li>
+        )}
         <Li>
           <label htmlFor="message">Message</label>
           <Input type="text" placeholder="Type to Search" />

@@ -41,5 +41,6 @@ export const Button = styled.button`
   background-color: inherit;
   border: none;
   height: 50px;
-  bottom: 50px;
+  width: 50px;
+  cursor: pointer;
 `;
