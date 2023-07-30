@@ -6,7 +6,25 @@ const mockAPI = axios.create({
 
 export const getNewsFeed = async () => {
   try {
-    const { data } = await mockAPI.get('/posts');
+    const { data } = await mockAPI.get(`/posts`);
+    return data;
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const getProfileDetails = async (id) => {
+  try {
+    const { data } = await mockAPI.get(`/users/${id}`);
+    return data[0];
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const getProfilePosts = async (id) => {
+  try {
+    const { data } = await mockAPI.get(`/posts/${id}`);
     return data;
   } catch (e) {
     console.log(e.message);
