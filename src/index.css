@@ -9,9 +9,19 @@
   --modal-form-border: rgba(33, 33, 33, 0.2);
   --placeholder: rgba(117, 117, 117, 0.5);
 
-  --radial-gradient: radial-gradient( 183.6% 183.01% at 59.76% -23.42%,#4f2ee8 18.03%,#fff 100% );
+  --radial-gradient: radial-gradient(
+    183.6% 183.01% at 59.76% -23.42%,
+    #4f2ee8 18.03%,
+    #fff 100%
+  );
 
   --cubic: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --mobile-bp: 768px;
+  --desktop-bp: 1024px;
+  --mobile-padding: 15px;
+  --tablet-padding: 47px;
+  --desktop-padding: 85px;
 }
 
 * {
@@ -21,9 +31,11 @@
 }
 
 .container {
+  border-left: 2px solid gray;
+  border-right: 2px solid gray;
   margin-left: auto;
   margin-right: auto;
-  padding: 0px 15px;
+  padding: 0px var(--mobile-padding);
 
   @media (max-width: 768px) {
     min-width: 320px;
@@ -33,12 +45,12 @@
   @media (min-width: 768px) {
     width: 768;
     max-width: 1280px;
-    padding: 0px 47px;
+    padding: 0px var(--tablet-padding);
   }
 
   @media (min-width: 1280px) {
     width: 1280px;
-    padding: 0px 85px;
+    padding: 0px var(--desktop-padding);
   }
 }
 
