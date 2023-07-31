@@ -1,9 +1,11 @@
 import { AiOutlinePlusSquare } from 'react-icons/ai';
-import { Input, Ul, Li, Button, SearchBar } from './Controls.styled';
+import { TbFilterX } from 'react-icons/tb';
+import { Input, Ul, Li, Button, SearchBar, UlButtons } from './Controls.styled';
 import cssVar from 'utilities/cssVarGetter';
 import Select from 'react-select';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 
 const options = [
   { value: 'asc', label: 'New first' },
@@ -32,10 +34,9 @@ export const Controls = ({ isDesktop }) => {
     setSearchParams(params);
   };
 
-  // При потере фокуса URLSearchParams обновляет своё значение из Input value
-  const handleBlur = () => {
+  const handleChange = useDebouncedCallback(() => {
     updateSearchParams();
-  };
+  }, 450);
 
   // Для Select нужен отдельный хендлер
   const handleSelect = e => {
@@ -70,9 +71,16 @@ export const Controls = ({ isDesktop }) => {
     setIsProfilePage(location.pathname.startsWith('/profile'));
   }, [location]);
 
+  const handleClear = () => {
+    setAuthorSearch('');
+    setQuerySearch('');
+    setSort(null);
+    setSearchParams({});
+  };
+
   return (
     <>
-      <SearchBar onBlur={handleBlur}>
+      <SearchBar onChange={handleChange}>
         <Ul>
           {isProfilePage ? (
             <Li>
@@ -88,7 +96,7 @@ export const Controls = ({ isDesktop }) => {
                 name="author"
                 value={authorSearch}
                 onChange={e => {
-                  setAuthorSearch(e.target.value);
+                  setAuthorSearch(e.target.value.trim());
                 }}
               />
             </Li>
@@ -102,7 +110,7 @@ export const Controls = ({ isDesktop }) => {
               name="q"
               value={querySearch}
               onChange={e => {
-                setQuerySearch(e.target.value);
+                setQuerySearch(e.target.value.trim());
               }}
             />
           </Li>
@@ -115,16 +123,37 @@ export const Controls = ({ isDesktop }) => {
               isSearchable={false}
               onChange={handleSelect}
               value={sort}
+              styles={{
+                option: (provided, state) => ({
+                  ...provided,
+                  color: 'black',
+                }),
+                singleValue: provided => ({
+                  ...provided,
+                  color: 'black',
+                }),
+              }}
             />
           </Li>
           <Li>
-            {!isDesktop && <label htmlFor="sort">Add new post:</label>}
-            <Button>
-              <AiOutlinePlusSquare
-                size={isDesktop ? 50 : 36}
-                color={cssVar('--primary-light')}
-              />
-            </Button>
+            <UlButtons>
+              <Li>
+                <Button>
+                  <AiOutlinePlusSquare
+                    size={isDesktop ? 50 : 36}
+                    color={cssVar('--primary-light')}
+                  />
+                </Button>
+              </Li>
+              <Li>
+                <Button name="clear" onClick={handleClear}>
+                  <TbFilterX
+                    size={isDesktop ? 50 : 36}
+                    color={cssVar('--primary-light')}
+                  />
+                </Button>
+              </Li>
+            </UlButtons>
           </Li>
         </Ul>
       </SearchBar>

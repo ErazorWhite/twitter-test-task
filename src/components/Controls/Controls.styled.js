@@ -21,26 +21,20 @@ export const Li = styled.li`
   display: flex;
   flex-direction: column;
   min-height: 60px;
+  justify-content: end;
+`;
 
-  &:last-of-type {
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    gap: 5px;
-    margin-top: 20px;
-    @media (min-width: 768px) {
-      gap: 5px;
-      margin-top: 0;
-      align-items: end;
-    }
-  }
+export const UlButtons = styled.ul`
+  display: flex;
+  justify-content: center;
+  gap: 5px;
 `;
 
 export const Input = styled.input`
+  font-size: 1.1em;
   height: 40px;
   min-width: 200px;
-  padding: 5px 15px;
+  padding: 4px 10px;
 `;
 
 export const Button = styled.button`
