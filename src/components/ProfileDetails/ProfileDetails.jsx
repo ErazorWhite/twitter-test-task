@@ -14,9 +14,11 @@ import {
 } from './ProfileDetails.styled';
 import { Img } from './ProfileDetails.styled';
 import DateParser from 'utilities/dateParser';
-import { getProfilePosts } from 'api/mockAPI';
+import { getNewsFeed } from 'api/mockAPI';
 import { PostsList } from 'components/PostsList/PostsList';
 import { Section } from 'components/Section/Section';
+import { useSearchParams } from 'react-router-dom';
+import defaultPhoto from 'images/img_not_found.jpg';
 
 const ProfileDetails = ({
   profileDetails: {
@@ -36,12 +38,25 @@ const ProfileDetails = ({
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { month, year } = DateParser(registeredAt);
+  const [searchParams] = useSearchParams();
+  const accoutAvatar = avatar ? avatar : defaultPhoto;
+  const accountBanner = banner ? banner : defaultPhoto;
 
   useEffect(() => {
     setIsLoading(true);
     const asyncWrapper = async () => {
       try {
-        const posts = await getProfilePosts(userId);
+        const params = {};
+        params.authorId = userId;
+
+        // Фильтрация
+        for (const [key, value] of searchParams.entries()) {
+          if (value) {
+            params[key] = value;
+          }
+        }
+
+        const posts = await getNewsFeed(params);
         setPosts(posts);
       } catch (e) {
         console.log(e.message);
@@ -50,17 +65,18 @@ const ProfileDetails = ({
       }
     };
     asyncWrapper();
-  }, [userId]);
+  }, [userId, searchParams]);
 
   return (
     <>
+      {isLoading && <div>LOADING ...</div>}
       <h1>{username}</h1>
       <Text>TotalMessages</Text>
       <BannerThumb>
-        <Img src={banner} alt="banner" width={'600'} height={'200'} />
+        <Img src={accountBanner} alt="banner" width={'600'} height={'200'} />
       </BannerThumb>
       <AvatarThumb>
-        <Img src={avatar} alt="avatar" width={'40'} height={'40'} />
+        <Img src={accoutAvatar} alt="avatar" width={'40'} height={'40'} />
       </AvatarThumb>
       <H2>{username}</H2>
       <Text>{description}</Text>
@@ -91,7 +107,6 @@ const ProfileDetails = ({
         </li>
       </FollowList>
       <Section>
-        {isLoading && <div>LOADING ...</div>}
         <PostsList posts={posts} />
       </Section>
     </>
