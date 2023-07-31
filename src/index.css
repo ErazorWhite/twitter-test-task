@@ -30,7 +30,17 @@
   box-sizing: border-box;
 }
 
+body,
+html,
+#root {
+  height: 100%; /* Задает высоту 100% */
+  margin: 0; /* Удаляет любые встроенные отступы */
+  display: flex; /* Включает flexbox */
+  flex-direction: column; /* Ориентирует flex элементы вертикально */
+}
+
 .container {
+  flex-grow: 1; /* Заставляет .container расти и занимать все свободное пространство */
   border-left: 2px solid gray;
   border-right: 2px solid gray;
   margin-left: auto;
