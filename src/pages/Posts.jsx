@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getNewsFeed } from 'api/mockAPI';
 import { PostsList } from 'components/PostsList/PostsList';
 import { useSearchParams } from 'react-router-dom';
+import LoadingPortal from 'components/Backdrop/Backdrop';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -35,10 +36,12 @@ const Posts = () => {
   }, [searchParams]);
 
   return (
-    <Section title="Posts">
-      {isLoading && <div>LOADING ...</div>}
-      <PostsList posts={posts} />
-    </Section>
+    <>
+      {true && <LoadingPortal isLoading={isLoading} />}
+      <Section title="Posts">
+        <PostsList posts={posts} />
+      </Section>
+    </>
   );
 };
 

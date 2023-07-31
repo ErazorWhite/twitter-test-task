@@ -3,6 +3,7 @@ import { Section } from 'components/Section/Section';
 import { useParams } from 'react-router-dom';
 import { getProfileDetails } from 'api/mockAPI';
 import ProfileDetails from 'components/ProfileDetails/ProfileDetails';
+import LoadingPortal from 'components/Backdrop/Backdrop';
 
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +28,7 @@ const Profile = () => {
 
   return (
     <Section>
-      {isLoading && <div>LOADING ...</div>}
+      {true && <LoadingPortal isLoading={isLoading} />}
       {profileDetails ? (
         <ProfileDetails profileDetails={profileDetails} />
       ) : (

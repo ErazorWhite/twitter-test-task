@@ -3,22 +3,23 @@ import { TfiLocationPin } from 'react-icons/tfi';
 import { AiOutlineLink } from 'react-icons/ai';
 import { BiCalendar } from 'react-icons/bi';
 import {
-  AdditionalDescItem,
-  AdditionalDescList,
+  AdditionalDescriptionItem,
+  AdditionalDescriptionList,
   AvatarThumb,
   BannerThumb,
   FollowDigit,
   FollowList,
   H2,
   Text,
+  Img,
 } from './ProfileDetails.styled';
-import { Img } from './ProfileDetails.styled';
 import DateParser from 'utilities/dateParser';
 import { getNewsFeed } from 'api/mockAPI';
 import { PostsList } from 'components/PostsList/PostsList';
 import { Section } from 'components/Section/Section';
 import { useSearchParams } from 'react-router-dom';
 import defaultPhoto from 'images/img_not_found.jpg';
+import LoadingPortal from 'components/Backdrop/Backdrop';
 
 const ProfileDetails = ({
   profileDetails: {
@@ -69,7 +70,7 @@ const ProfileDetails = ({
 
   return (
     <>
-      {isLoading && <div>LOADING ...</div>}
+      {true && <LoadingPortal isLoading={isLoading} />}
       <h1>{username}</h1>
       <Text>TotalMessages</Text>
       <BannerThumb>
@@ -80,24 +81,24 @@ const ProfileDetails = ({
       </AvatarThumb>
       <H2>{username}</H2>
       <Text>{description}</Text>
-      <AdditionalDescList>
-        <AdditionalDescItem>
+      <AdditionalDescriptionList>
+        <AdditionalDescriptionItem>
           <TfiLocationPin size={19} />
           <p>
             {country}, {city}
           </p>
-        </AdditionalDescItem>
-        <AdditionalDescItem>
+        </AdditionalDescriptionItem>
+        <AdditionalDescriptionItem>
           <AiOutlineLink size={19} />
           <a href={url}>{url}</a>
-        </AdditionalDescItem>
-        <AdditionalDescItem>
+        </AdditionalDescriptionItem>
+        <AdditionalDescriptionItem>
           <BiCalendar size={19} />
           <p>
             Joined {month} {year}
           </p>
-        </AdditionalDescItem>
-      </AdditionalDescList>
+        </AdditionalDescriptionItem>
+      </AdditionalDescriptionList>
       <FollowList>
         <li>
           <FollowDigit>{following}</FollowDigit> Following

@@ -32,14 +32,14 @@ export const H2 = styled.h2`
   margin-bottom: 12px;
 `;
 
-export const AdditionalDescList = styled.ul`
+export const AdditionalDescriptionList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 12px;
 `;
 
-export const AdditionalDescItem = styled.li`
+export const AdditionalDescriptionItem = styled.li`
   display: flex;
   gap: 4px;
 `;
