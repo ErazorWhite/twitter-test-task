@@ -2,15 +2,28 @@ import { Section } from 'components/Section/Section';
 import { useEffect, useState } from 'react';
 import { getNewsFeed } from 'api/mockAPI';
 import { PostsList } from 'components/PostsList/PostsList';
+import { useSearchParams } from 'react-router-dom';
+
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     setIsLoading(true);
+
     const asyncWrapper = async () => {
       try {
-        const posts = await getNewsFeed();
+        const params = {};
+
+        // Фильтрация
+        for (const [key, value] of searchParams.entries()) {
+          if (value) {
+            params[key] = value;
+          }
+        }
+
+        const posts = await getNewsFeed(params);
         setPosts(posts);
       } catch (e) {
         console.log(e.message);
@@ -19,7 +32,8 @@ const Posts = () => {
       }
     };
     asyncWrapper();
-  }, []);
+  }, [searchParams]);
+
   return (
     <Section title="Posts">
       {isLoading && <div>LOADING ...</div>}
