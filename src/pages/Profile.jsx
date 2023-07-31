@@ -28,7 +28,6 @@ const Profile = () => {
   return (
     <Section>
       {isLoading && <div>LOADING ...</div>}
-      {console.log(profileDetails)}
       {profileDetails ? (
         <ProfileDetails profileDetails={profileDetails} />
       ) : (
