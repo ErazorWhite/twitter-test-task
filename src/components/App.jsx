@@ -1,8 +1,10 @@
 import { Layout } from 'Layout/Layout';
-import NotFoundpage from 'pages/Notfoundpage';
-import Posts from 'pages/Posts';
-import Profile from 'pages/Profile';
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
+
+const Posts = lazy(() => import('../pages/Posts'));
+const Profile = lazy(() => import('../pages/Profile'));
+const NotFoundpage = lazy(() => import('../pages/Notfoundpage'));
 
 function App() {
   return (
