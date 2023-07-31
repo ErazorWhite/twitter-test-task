@@ -1,5 +1,12 @@
 import { styled } from 'styled-components';
 
+export const SearchBar = styled.div`
+  margin-right: none;
+  @media (min-width: 768px) {
+    margin-right: auto;
+  }
+`;
+
 export const Ul = styled.ul`
   @media (min-width: 768px) {
     display: flex;
@@ -14,7 +21,6 @@ export const Li = styled.li`
   display: flex;
   flex-direction: column;
   min-height: 60px;
-  
 
   &:last-of-type {
     flex-direction: row;
