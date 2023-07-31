@@ -4,16 +4,16 @@ const mockAPI = axios.create({
   baseURL: 'https://murmuring-spire-16258-e111b21c7a09.herokuapp.com/api',
 });
 
-export const getNewsFeed = async () => {
+export const getNewsFeed = async searchParams => {
   try {
-    const { data } = await mockAPI.get(`/posts`);
+    const { data } = await mockAPI.get(`/posts`, { params: searchParams });
     return data;
   } catch (e) {
     console.log(e.message);
   }
 };
 
-export const getProfileDetails = async (id) => {
+export const getProfileDetails = async id => {
   try {
     const { data } = await mockAPI.get(`/users/${id}`);
     return data[0];
@@ -21,13 +21,3 @@ export const getProfileDetails = async (id) => {
     console.log(e.message);
   }
 };
-
-export const getProfilePosts = async (id) => {
-  try {
-    const { data } = await mockAPI.get(`/posts/${id}`);
-    return data;
-  } catch (e) {
-    console.log(e.message);
-  }
-};
-
