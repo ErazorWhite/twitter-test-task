@@ -13,6 +13,7 @@
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
     "axios": "^1.4.0",
+    "formik": "^2.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
@@ -23,7 +24,8 @@
     "react-select": "^5.7.4",
     "styled-components": "^6.0.5",
     "use-debounce": "^9.0.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

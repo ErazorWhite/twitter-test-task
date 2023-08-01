@@ -1,0 +1,119 @@
+import { Formik, Field, ErrorMessage } from 'formik';
+import {
+  Overlay,
+  ModalWrapper,
+  StyledForm,
+  H2,
+  Label,
+  StyledField,
+  StyledSubmit,
+  TextareaBox,
+  CharacterCounter,
+} from './Modal.styled';
+import ReactDOM from 'react-dom';
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Backdrop from 'components/Backdrop/Backdrop';
+import * as yup from 'yup';
+import { StyledErrorMessage, StyledClose } from './Modal.styled';
+import css from './Field.module.css';
+
+const initialValues = {
+  author: '',
+  message: '',
+};
+
+const schema = yup.object().shape({
+  author: yup
+    .string()
+    .min(3, 'Must be at least 3 characters or more!')
+    .max(24, 'Must be 24 characters or less')
+    .notOneOf(['1234567890'], 'Invalid name')
+    .matches(/^[a-zA-Z\s]+$/, 'Invalid name')
+    .required('Required!'),
+  message: yup
+    .string()
+    .max(200, 'Maximum 200 characters')
+    .required('Required!'),
+});
+
+export const Modal = ({ closeModal }) => {
+  const portalRoot = document.getElementById('modal-root');
+
+  useEffect(() => {
+    const handleEsc = e => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [closeModal]);
+
+  const handleOverlayClick = e => {
+    if (e.target === e.currentTarget) {
+      closeModal();
+    }
+  };
+
+  const handleSubmit = async (values, { resetForm }) => {
+    console.log('Submit: ', values);
+    resetForm();
+  };
+
+  return ReactDOM.createPortal(
+    <>
+      <Backdrop />
+      <Overlay onClick={handleOverlayClick}>
+        <ModalWrapper>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={schema}
+            validateOnChange={true}
+            onSubmit={handleSubmit}
+          >
+            {({ isSubmitting, values }) => (
+              <StyledForm>
+                <StyledClose onClick={closeModal} />
+                <H2>Leave new message</H2>
+                <Label htmlFor="author">Name</Label>
+                <StyledField
+                  type="name"
+                  name="author"
+                  placeholder="Enter your name"
+                />
+                <ErrorMessage name="author" component={StyledErrorMessage} />
+                <TextareaBox>
+                  <Label htmlFor="message">Message</Label>
+                  <Field
+                    as="textarea"
+                    type="text"
+                    name="message"
+                    placeholder="Enter your new message"
+                    className={`${css.field} ${css.fieldTextarea}`}
+                    maxLength={200}
+                  />
+                  <CharacterCounter>
+                    {values.message.length}/200
+                  </CharacterCounter>
+                </TextareaBox>
+                <ErrorMessage name="message" component={StyledErrorMessage} />
+                <StyledSubmit type="submit" disabled={isSubmitting}>
+                  Submit
+                </StyledSubmit>
+              </StyledForm>
+            )}
+          </Formik>
+        </ModalWrapper>
+      </Overlay>
+    </>,
+    portalRoot
+  );
+};
+
+Modal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+};
