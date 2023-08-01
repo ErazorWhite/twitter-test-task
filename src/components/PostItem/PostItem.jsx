@@ -41,7 +41,7 @@ export const PostItem = ({
                 src={postImage}
                 alt="post visualization"
                 width={'480'}
-                height={'640'}
+                height={'360'}
               />
             </MessageImgBox>
           </MessageBox>
