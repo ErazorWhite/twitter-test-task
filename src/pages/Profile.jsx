@@ -3,7 +3,7 @@ import { Section } from 'components/Section/Section';
 import { useParams } from 'react-router-dom';
 import { getProfileDetails } from 'api/mockAPI';
 import ProfileDetails from 'components/ProfileDetails/ProfileDetails';
-import LoadingPortal from 'components/Backdrop/Backdrop';
+import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner';
 
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,7 @@ const Profile = () => {
 
   return (
     <Section>
-      {true && <LoadingPortal isLoading={isLoading} />}
+      {true && <LoadingSpinner isLoading={isLoading} />}
       {profileDetails ? (
         <ProfileDetails profileDetails={profileDetails} />
       ) : (

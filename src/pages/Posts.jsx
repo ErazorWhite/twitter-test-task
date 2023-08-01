@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getNewsFeed } from 'api/mockAPI';
 import { PostsList } from 'components/PostsList/PostsList';
 import { useSearchParams } from 'react-router-dom';
-import LoadingPortal from 'components/Backdrop/Backdrop';
+import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -37,7 +37,7 @@ const Posts = () => {
 
   return (
     <>
-      {true && <LoadingPortal isLoading={isLoading} />}
+      {true && <LoadingSpinner isLoading={isLoading} />}
       <Section title="Posts">
         <PostsList posts={posts} />
       </Section>

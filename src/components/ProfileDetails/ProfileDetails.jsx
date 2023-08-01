@@ -19,7 +19,7 @@ import { PostsList } from 'components/PostsList/PostsList';
 import { Section } from 'components/Section/Section';
 import { useSearchParams } from 'react-router-dom';
 import defaultPhoto from 'images/img_not_found.jpg';
-import LoadingPortal from 'components/Backdrop/Backdrop';
+import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner';
 
 const ProfileDetails = ({
   profileDetails: {
@@ -70,7 +70,7 @@ const ProfileDetails = ({
 
   return (
     <>
-      {true && <LoadingPortal isLoading={isLoading} />}
+      {true && <LoadingSpinner isLoading={isLoading} />}
       <h1>{username}</h1>
       <Text>TotalMessages</Text>
       <BannerThumb>
