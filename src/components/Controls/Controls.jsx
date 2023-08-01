@@ -6,10 +6,11 @@ import Select from 'react-select';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
+import { Modal } from 'components/Modal/Modal';
 
 const options = [
-  { value: 'asc', label: 'New first' },
-  { value: 'desc', label: 'Old first' },
+  { value: 'asc', label: 'Old first' },
+  { value: 'desc', label: 'New first' },
 ];
 
 export const Controls = ({ isDesktop }) => {
@@ -20,6 +21,11 @@ export const Controls = ({ isDesktop }) => {
   const [authorSearch, setAuthorSearch] = useState(''); // Для контролируемого Input Author
   const [querySearch, setQuerySearch] = useState(''); // Для контролируемого Input Query
   const [sort, setSort] = useState(options[0]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   // Обновляем URLSearchParams из SearchBar
   const updateSearchParams = (newSort = sort) => {
@@ -55,13 +61,11 @@ export const Controls = ({ isDesktop }) => {
     let sortValue = null;
 
     // Если _sort равно 'createdAt' и _order равно 'asc', значит, сортировка по возрастанию
-    if (_sort === 'createdAt' && _order === 'asc') {
+    if (_sort === 'createdAt' && _order === 'asc')
       sortValue = options.find(opt => opt.value === 'asc');
-    }
     // Если _sort равно 'createdAt' и _order равно 'desc', значит, сортировка по убыванию
-    if (_sort === 'createdAt' && _order === 'desc') {
+    if (_sort === 'createdAt' && _order === 'desc')
       sortValue = options.find(opt => opt.value === 'desc');
-    }
 
     setSort(sortValue);
   }, [searchParams]);
@@ -69,6 +73,9 @@ export const Controls = ({ isDesktop }) => {
   // Для /profile у нас пропадает Input Author, вместо него ← Go Back
   useEffect(() => {
     setIsProfilePage(location.pathname.startsWith('/profile'));
+    backLinkLocationRef.current = location.state?.from // Запоминаем куда возвращаться
+      ? location.state.from
+      : { pathname: '/', search: '' };
   }, [location]);
 
   const handleClear = () => {
@@ -138,7 +145,7 @@ export const Controls = ({ isDesktop }) => {
           <Li>
             <UlButtons>
               <Li>
-                <Button>
+                <Button name="addNew" onClick={toggleModal}>
                   <AiOutlinePlusSquare
                     size={isDesktop ? 50 : 36}
                     color={cssVar('--primary-light')}
@@ -157,6 +164,9 @@ export const Controls = ({ isDesktop }) => {
           </Li>
         </Ul>
       </SearchBar>
+      {isModalOpen && (
+        <Modal closeModal={toggleModal} />
+      )}
     </>
   );
 };
