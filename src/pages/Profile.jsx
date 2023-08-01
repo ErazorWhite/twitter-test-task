@@ -28,8 +28,8 @@ const Profile = () => {
 
   return (
     <Section>
-      {true && <LoadingSpinner isLoading={isLoading} />}
-      {profileDetails ? (
+      {isLoading && <LoadingSpinner isLoading={isLoading} />}
+      {profileDetails && Object.keys(profileDetails).length > 0 ? (
         <ProfileDetails profileDetails={profileDetails} />
       ) : (
         <div>Oops!</div>

@@ -37,9 +37,9 @@ const Posts = () => {
 
   return (
     <>
-      {true && <LoadingSpinner isLoading={isLoading} />}
+      {isLoading && <LoadingSpinner isLoading={isLoading} />}
       <Section title="Posts">
-        <PostsList posts={posts} />
+        {<PostsList posts={posts} isLoading={isLoading} />}
       </Section>
     </>
   );

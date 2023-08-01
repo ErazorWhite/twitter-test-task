@@ -10,7 +10,7 @@ export const StyledHeader = styled.header`
   background-color: var(--secondary-dark);
   min-height: 60px;
   min-width: 320px;
-  z-index: 400;
+  z-index: 1500;
 
   @media (min-width: 768px) {
     justify-content: center;
