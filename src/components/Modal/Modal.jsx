@@ -79,6 +79,7 @@ export const Modal = ({ closeModal }) => {
     await createNewPost(newPost);
     
     resetForm();
+    closeModal();
   };
 
   return ReactDOM.createPortal(
