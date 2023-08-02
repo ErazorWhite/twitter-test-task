@@ -17,6 +17,8 @@ import Backdrop from 'components/Backdrop/Backdrop';
 import * as yup from 'yup';
 import { StyledErrorMessage, StyledClose } from './Modal.styled';
 import css from './Field.module.css';
+import { faker } from '@faker-js/faker';
+import { createNewPost } from 'api/mockAPI';
 
 const initialValues = {
   author: '',
@@ -59,8 +61,23 @@ export const Modal = ({ closeModal }) => {
     }
   };
 
-  const handleSubmit = async (values, { resetForm }) => {
-    console.log('Submit: ', values);
+  const GenerateRandomValues = () => {
+    const createdAt = new Date().toISOString();
+    const avatar = faker.image.avatar();
+    const image = faker.image.urlLoremFlickr({ category: 'cat' });
+    const authorId = faker.string.uuid();
+    const messageId = faker.string.uuid();
+    return { createdAt, avatar, image, authorId, messageId };
+  };
+
+  const handleSubmit = async (value, { resetForm }) => {
+    const randoms = GenerateRandomValues();
+    const author = value.author.trim();
+    const message = value.message.trim();
+    const newPost = { author, message, ...randoms };
+    
+    await createNewPost(newPost);
+    
     resetForm();
   };
 
