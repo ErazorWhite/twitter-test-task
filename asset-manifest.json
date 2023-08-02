@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/twitter-test-task/static/css/main.fa478896.css",
-    "main.js": "/twitter-test-task/static/js/main.7b9accb9.js",
+    "main.css": "/twitter-test-task/static/css/main.2fd260cd.css",
+    "main.js": "/twitter-test-task/static/js/main.503cab90.js",
     "static/js/919.8624a885.chunk.js": "/twitter-test-task/static/js/919.8624a885.chunk.js",
-    "static/js/879.8d1e7116.chunk.js": "/twitter-test-task/static/js/879.8d1e7116.chunk.js",
+    "static/js/879.3a617317.chunk.js": "/twitter-test-task/static/js/879.3a617317.chunk.js",
     "static/js/38.5f0fe4d5.chunk.js": "/twitter-test-task/static/js/38.5f0fe4d5.chunk.js",
     "static/js/635.6928e6c8.chunk.js": "/twitter-test-task/static/js/635.6928e6c8.chunk.js",
     "static/js/157.0347a1de.chunk.js": "/twitter-test-task/static/js/157.0347a1de.chunk.js",
     "static/media/img_not_found.jpg": "/twitter-test-task/static/media/img_not_found.3717584c8c962ee91b9d.jpg",
     "index.html": "/twitter-test-task/index.html",
-    "main.fa478896.css.map": "/twitter-test-task/static/css/main.fa478896.css.map",
-    "main.7b9accb9.js.map": "/twitter-test-task/static/js/main.7b9accb9.js.map",
+    "main.2fd260cd.css.map": "/twitter-test-task/static/css/main.2fd260cd.css.map",
+    "main.503cab90.js.map": "/twitter-test-task/static/js/main.503cab90.js.map",
     "919.8624a885.chunk.js.map": "/twitter-test-task/static/js/919.8624a885.chunk.js.map",
-    "879.8d1e7116.chunk.js.map": "/twitter-test-task/static/js/879.8d1e7116.chunk.js.map",
+    "879.3a617317.chunk.js.map": "/twitter-test-task/static/js/879.3a617317.chunk.js.map",
     "38.5f0fe4d5.chunk.js.map": "/twitter-test-task/static/js/38.5f0fe4d5.chunk.js.map",
     "635.6928e6c8.chunk.js.map": "/twitter-test-task/static/js/635.6928e6c8.chunk.js.map",
     "157.0347a1de.chunk.js.map": "/twitter-test-task/static/js/157.0347a1de.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fa478896.css",
-    "static/js/main.7b9accb9.js"
+    "static/css/main.2fd260cd.css",
+    "static/js/main.503cab90.js"
   ]
 }
