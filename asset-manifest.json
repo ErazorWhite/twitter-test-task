@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/twitter-test-task/static/css/main.2fd260cd.css",
-    "main.js": "/twitter-test-task/static/js/main.9c4ba49f.js",
-    "static/js/919.07e13000.chunk.js": "/twitter-test-task/static/js/919.07e13000.chunk.js",
-    "static/js/879.4353ed44.chunk.js": "/twitter-test-task/static/js/879.4353ed44.chunk.js",
+    "main.js": "/twitter-test-task/static/js/main.ee9683b0.js",
+    "static/js/919.8624a885.chunk.js": "/twitter-test-task/static/js/919.8624a885.chunk.js",
+    "static/js/879.3a617317.chunk.js": "/twitter-test-task/static/js/879.3a617317.chunk.js",
     "static/js/38.5f0fe4d5.chunk.js": "/twitter-test-task/static/js/38.5f0fe4d5.chunk.js",
-    "static/js/276.7db39640.chunk.js": "/twitter-test-task/static/js/276.7db39640.chunk.js",
+    "static/js/635.6928e6c8.chunk.js": "/twitter-test-task/static/js/635.6928e6c8.chunk.js",
     "static/js/157.0347a1de.chunk.js": "/twitter-test-task/static/js/157.0347a1de.chunk.js",
     "static/media/img_not_found.jpg": "/twitter-test-task/static/media/img_not_found.3717584c8c962ee91b9d.jpg",
     "index.html": "/twitter-test-task/index.html",
     "main.2fd260cd.css.map": "/twitter-test-task/static/css/main.2fd260cd.css.map",
-    "main.9c4ba49f.js.map": "/twitter-test-task/static/js/main.9c4ba49f.js.map",
-    "919.07e13000.chunk.js.map": "/twitter-test-task/static/js/919.07e13000.chunk.js.map",
-    "879.4353ed44.chunk.js.map": "/twitter-test-task/static/js/879.4353ed44.chunk.js.map",
+    "main.ee9683b0.js.map": "/twitter-test-task/static/js/main.ee9683b0.js.map",
+    "919.8624a885.chunk.js.map": "/twitter-test-task/static/js/919.8624a885.chunk.js.map",
+    "879.3a617317.chunk.js.map": "/twitter-test-task/static/js/879.3a617317.chunk.js.map",
     "38.5f0fe4d5.chunk.js.map": "/twitter-test-task/static/js/38.5f0fe4d5.chunk.js.map",
-    "276.7db39640.chunk.js.map": "/twitter-test-task/static/js/276.7db39640.chunk.js.map",
+    "635.6928e6c8.chunk.js.map": "/twitter-test-task/static/js/635.6928e6c8.chunk.js.map",
     "157.0347a1de.chunk.js.map": "/twitter-test-task/static/js/157.0347a1de.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2fd260cd.css",
-    "static/js/main.9c4ba49f.js"
+    "static/js/main.ee9683b0.js"
   ]
 }
