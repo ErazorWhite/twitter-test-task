@@ -12,10 +12,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Posts />} />
-          <Route path="posts/" element={<Posts />} />
+          <Route path="posts" element={<Posts />} />
           <Route path="profile/:userName" element={<Profile />} />
+          <Route path="*" element={<NotFoundpage />} />
         </Route>
-        <Route path="*" element={<NotFoundpage />} />
       </Routes>
     </>
   );

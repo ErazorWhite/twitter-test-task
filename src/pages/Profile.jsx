@@ -15,7 +15,6 @@ const Profile = () => {
 
     const asyncWrapper = async () => {
       try {
-        console.log('userName: ', userName)
         const profileDetails = await getProfileDetails(userName);
         setProfileDetails(profileDetails);
       } catch (e) {
