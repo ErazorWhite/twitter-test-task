@@ -11,7 +11,7 @@ export const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1200;
+  z-index: 1600;
 `;
 
 export const ModalWrapper = styled.div`
