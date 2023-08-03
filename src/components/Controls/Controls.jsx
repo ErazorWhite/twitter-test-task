@@ -31,8 +31,8 @@ export const Controls = ({ isDesktop }) => {
   const updateSearchParams = (newSort = sort) => {
     const params = {};
 
-    if (authorSearch.length) params.author = authorSearch;
-    if (querySearch.length) params.q = querySearch;
+    if (authorSearch.length) params.author = authorSearch.trim();
+    if (querySearch.length) params.q = querySearch.trim() ;
     if (newSort) {
       params._sort = 'createdAt'; // сортировка по полю 'createdAt'
       params._order = newSort.value; // порядок сортировки - asc или desc
@@ -103,7 +103,7 @@ export const Controls = ({ isDesktop }) => {
                 name="author"
                 value={authorSearch}
                 onChange={e => {
-                  setAuthorSearch(e.target.value.trim());
+                  setAuthorSearch(e.target.value);
                 }}
               />
             </Li>
@@ -117,7 +117,7 @@ export const Controls = ({ isDesktop }) => {
               name="q"
               value={querySearch}
               onChange={e => {
-                setQuerySearch(e.target.value.trim());
+                setQuerySearch(e.target.value);
               }}
             />
           </Li>
