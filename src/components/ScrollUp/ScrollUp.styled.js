@@ -13,4 +13,5 @@ export const ScrollUpButton = styled.button`
   border-radius: 50%;
   height: 60px;
   width: 60px;
+  cursor: pointer;
 `;
