@@ -19,7 +19,7 @@ export const ScrollUp = () => {
   useEffect(() => {
     window.addEventListener('scroll', toggleVisibility);
     return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
+  }, [toggleVisibility]);
 
   return (
     <ScrollUpBox>
