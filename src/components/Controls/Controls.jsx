@@ -8,7 +8,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { Modal } from 'components/Modal/Modal';
 import { useLocalStorage } from 'hooks/useLocalStorage';
-import { replace } from 'formik';
 
 // Sort
 const options = [
@@ -46,9 +45,7 @@ export const Controls = ({ isDesktop }) => {
         params._sort = 'createdAt'; // сортировка по полю 'createdAt'
         params._order = newSort.value; // порядок сортировки - asc или desc
       }
-      const newSearch = new URLSearchParams(params).toString();
-      replace(`${location.pathname}?${newSearch}`);
-
+      setSearchParams(params);
     },
     [curPage, postsPerPage, authorSearch, querySearch, sort, setSearchParams]
   );
