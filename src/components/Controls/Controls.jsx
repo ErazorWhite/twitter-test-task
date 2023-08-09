@@ -4,42 +4,56 @@ import { Input, Ul, Li, Button, SearchBar, UlButtons } from './Controls.styled';
 import cssVar from 'utilities/cssVarGetter';
 import Select from 'react-select';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { Modal } from 'components/Modal/Modal';
+import { useLocalStorage } from 'hooks/useLocalStorage';
+import { replace } from 'formik';
 
+// Sort
 const options = [
   { value: 'asc', label: 'Old first' },
   { value: 'desc', label: 'New first' },
 ];
 
 export const Controls = ({ isDesktop }) => {
-  const [isProfilePage, setIsProfilePage] = useState(false); // для ← Go Back
-  const location = useLocation(); // для ← Go Back
-  const backLinkLocationRef = useRef(location.state?.from ?? '/'); // Для ← Go Back
+  const [isProfilePage, setIsProfilePage] = useState(false); // для ← Go Back с сохранением фильтров
+  const location = useLocation(); // для ← Go Back с сохранением фильтров
+  const backLinkLocationRef = useRef(location.state?.from ?? '/'); // Для ← Go Back с сохранением фильтров
   const [searchParams, setSearchParams] = useSearchParams(); // Получаем параметры из URLSearchParams для фильтрации
   const [authorSearch, setAuthorSearch] = useState(''); // Для контролируемого Input Author
   const [querySearch, setQuerySearch] = useState(''); // Для контролируемого Input Query
-  const [sort, setSort] = useState(options[0]);
+  const [sort, setSort] = useLocalStorage('SORT', options[0]); // Поиск в LocalStorage запоминает
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [curPage, setCurPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useLocalStorage('PER_PAGE', 5); // PerPage в LocalStorage запоминает
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
   // Обновляем URLSearchParams из SearchBar
-  const updateSearchParams = (newSort = sort) => {
-    const params = {};
+  const updateSearchParams = useCallback(
+    (newSort = sort) => {
+      const params = {};
 
-    if (authorSearch.length) params.author = authorSearch.trim();
-    if (querySearch.length) params.q = querySearch.trim() ;
-    if (newSort) {
-      params._sort = 'createdAt'; // сортировка по полю 'createdAt'
-      params._order = newSort.value; // порядок сортировки - asc или desc
-    }
-    setSearchParams(params);
-  };
+      params._page = curPage || 1;
+      params._limit = postsPerPage || 5;
+      if (authorSearch.length) params.author = authorSearch.trim();
+      if (querySearch.length) params.q = querySearch.trim();
+      if (newSort) {
+        params._sort = 'createdAt'; // сортировка по полю 'createdAt'
+        params._order = newSort.value; // порядок сортировки - asc или desc
+      }
+      const newSearch = new URLSearchParams(params).toString();
+      replace(`${location.pathname}?${newSearch}`);
 
+    },
+    [curPage, postsPerPage, authorSearch, querySearch, sort, setSearchParams]
+  );
+
+  // Хендлер для инпутов
   const handleChange = useDebouncedCallback(() => {
     updateSearchParams();
   }, 450);
@@ -50,15 +64,28 @@ export const Controls = ({ isDesktop }) => {
     updateSearchParams(e);
   };
 
-  // Input value и Select заполняются из URLSearchParams
+  // Перый useEffect нужен для того,
+  // чтобы проверять searchParams и, если необходимо, наполнять дефолтной информацией про пагинацию, а также сетать сортировку
+  // Работает только если searchParams пустой
   useEffect(() => {
+    if (!searchParams.size && location.pathname !== '/profile') {
+      updateSearchParams();
+    }
+  }, []);
+
+  // Второй useEffect нужен на случай когда мы изменяем searchParams
+  // Он парсит searchParams и наполняет информацией инпуты и селекторы
+  useEffect(() => {
+    setCurPage(searchParams.get('_page') ?? 1);
+    setPostsPerPage(searchParams.get('_limit') ?? 5);
     setAuthorSearch(searchParams.get('author') ?? '');
     setQuerySearch(searchParams.get('q') ?? '');
-
     const _sort = searchParams.get('_sort');
     const _order = searchParams.get('_order');
 
     let sortValue = null;
+
+    // Дальше выглядит не очень красиво, но пока не придумал как это сделать лучше
 
     // Если _sort равно 'createdAt' и _order равно 'asc', значит, сортировка по возрастанию
     if (_sort === 'createdAt' && _order === 'asc')
@@ -68,9 +95,9 @@ export const Controls = ({ isDesktop }) => {
       sortValue = options.find(opt => opt.value === 'desc');
 
     setSort(sortValue);
-  }, [searchParams]);
+  }, [searchParams, setSort, setPostsPerPage]);
 
-  // Для /profile у нас пропадает Input Author, вместо него ← Go Back
+  // Для /profile у нас пропадает Input Author, вместо него линк ← Go Back
   useEffect(() => {
     setIsProfilePage(location.pathname.startsWith('/profile'));
     backLinkLocationRef.current = location.state?.from // Запоминаем куда возвращаться
@@ -78,11 +105,14 @@ export const Controls = ({ isDesktop }) => {
       : { pathname: '/', search: '' };
   }, [location]);
 
+  // Очистка фильтрации
   const handleClear = () => {
-    setAuthorSearch('');
-    setQuerySearch('');
-    setSort(null);
-    setSearchParams({});
+    const params = {};
+    params._page = curPage;
+    params._limit = postsPerPage;
+    params._sort = 'createdAt'; // сортировка по полю 'createdAt'
+    params._order = 'asc'; // порядок сортировки - asc или desc
+    setSearchParams(params);
   };
 
   return (
@@ -131,7 +161,7 @@ export const Controls = ({ isDesktop }) => {
               onChange={handleSelect}
               value={sort}
               styles={{
-                option: (provided, state) => ({
+                option: provided => ({
                   ...provided,
                   color: 'black',
                 }),
@@ -164,9 +194,8 @@ export const Controls = ({ isDesktop }) => {
           </Li>
         </Ul>
       </SearchBar>
-      {isModalOpen && (
-        <Modal closeModal={toggleModal} />
-      )}
+
+      {isModalOpen && <Modal closeModal={toggleModal} />}
     </>
   );
 };

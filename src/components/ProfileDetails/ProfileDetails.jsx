@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TfiLocationPin } from 'react-icons/tfi';
 import { AiOutlineLink } from 'react-icons/ai';
 import { BiCalendar } from 'react-icons/bi';
@@ -20,6 +20,7 @@ import { Section } from 'components/Section/Section';
 import { useSearchParams } from 'react-router-dom';
 import defaultPhoto from 'images/img_not_found.jpg';
 import PropTypes from 'prop-types';
+import { PostsContext } from 'Layout/Layout';
 
 const ProfileDetails = ({
   profileDetails: {
@@ -42,6 +43,7 @@ const ProfileDetails = ({
   const [searchParams] = useSearchParams();
   const accoutAvatar = avatar ? avatar : defaultPhoto;
   const accountBanner = banner ? banner : defaultPhoto;
+  const { setTotalPosts } = useContext(PostsContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -57,8 +59,9 @@ const ProfileDetails = ({
           }
         }
 
-        const posts = await getNewsFeed(params);
-        setPosts(posts);
+        const { data, headers } = await getNewsFeed(params);
+        setTotalPosts(headers['x-total-count']); // json-server отдает total в заголовке
+        setPosts(data);
       } catch (e) {
         console.log(e.message);
       } finally {
@@ -66,7 +69,7 @@ const ProfileDetails = ({
       }
     };
     asyncWrapper();
-  }, [userId, searchParams]);
+  }, [userId, searchParams, setTotalPosts]);
 
   return (
     <>

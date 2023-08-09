@@ -1,14 +1,16 @@
 import { Section } from 'components/Section/Section';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getNewsFeed } from 'api/mockAPI';
 import { PostsList } from 'components/PostsList/PostsList';
 import { useSearchParams } from 'react-router-dom';
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner';
+import { PostsContext } from 'Layout/Layout';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
+  const { setTotalPosts } = useContext(PostsContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -24,8 +26,9 @@ const Posts = () => {
           }
         }
 
-        const posts = await getNewsFeed(params);
-        setPosts(posts);
+        const { data, headers } = await getNewsFeed(params);
+        setTotalPosts(headers['x-total-count']); // json-server отдает total в заголовке
+        setPosts(data);
       } catch (e) {
         console.log(e.message);
       } finally {
@@ -33,7 +36,7 @@ const Posts = () => {
       }
     };
     asyncWrapper();
-  }, [searchParams]);
+  }, [searchParams, setTotalPosts]);
 
   return (
     <>
