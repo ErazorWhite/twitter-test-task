@@ -18,8 +18,11 @@ export const PostsList = ({ posts, isLoading }) => {
 
   return (
     <Ul>
-      {posts?.length > 0 &&
-        posts.map(post => <PostItem key={post.messageId} postDetails={post} />)}
+      {posts?.length > 0 ? (
+        posts.map(post => <PostItem key={post.messageId} postDetails={post} />)
+      ) : (
+        <h3>We didn't find any posts.</h3>
+      )}
     </Ul>
   );
 };
