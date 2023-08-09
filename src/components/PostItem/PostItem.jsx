@@ -28,7 +28,10 @@ export const PostItem = ({
         </AvatarBox>
         <div>
           <MessageTitle>
-            <Link to={`/profile/${author}`} state={{ from: location }}>
+            <Link
+              to={`/profile/${author}`}
+              state={{ from: location }}
+            >
               <UserName>{author}</UserName>
             </Link>
             <span>·</span>

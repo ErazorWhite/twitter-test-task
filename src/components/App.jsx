@@ -7,6 +7,7 @@ const Profile = lazy(() => import('../pages/Profile'));
 const NotFoundpage = lazy(() => import('../pages/Notfoundpage'));
 
 function App() {
+  
   return (
     <>
       <Routes>
