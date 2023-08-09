@@ -7,8 +7,8 @@ const mockAPI = axios.create({
 
 export const getNewsFeed = async searchParams => {
   try {
-    const { data } = await mockAPI.get(`/posts`, { params: searchParams });
-    return data;
+    const response = await mockAPI.get(`/posts`, { params: searchParams });
+    return response;
   } catch (e) {
     console.log(e.message);
   }
