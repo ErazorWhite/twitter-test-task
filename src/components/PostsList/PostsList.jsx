@@ -7,7 +7,7 @@ export const PostsList = ({ posts, isLoading }) => {
   if (isLoading) {
     return (
       <Ul>
-        {Array.from({ length: 10 }).map((_, index) => (
+        {Array.from({ length: 5 }).map((_, index) => (
           <Li key={index}>
             <SkeletonPost key={index} />
           </Li>
