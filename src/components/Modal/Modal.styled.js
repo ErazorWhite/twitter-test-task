@@ -32,7 +32,6 @@ export const StyledForm = styled(Form)`
   position: relative;
   overflow-y: auto;
   min-width: 300px;
-  height: 100%;
   max-height: 550px;
   border-radius: 3%;
   padding: 40px 24px;
