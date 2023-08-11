@@ -35,7 +35,7 @@ export const Footer = () => {
     return parseInt(searchParams.get(searchParam), 10) || defaultValue;
   }
 
-  // Следующие два useEffect раньше приводили к бесконечному циклу рендера, 
+  // Следующие два useEffect раньше приводили к бесконечному циклу рендера,
   // но после добавления условий проблема, пусть и не идеально, но решена
 
   // Этот поддерживает актуальным URL в зависимости от curPage, postsPerPage
@@ -44,6 +44,7 @@ export const Footer = () => {
     newSearchParams.set('_page', curPage);
     newSearchParams.set('_limit', postsPerPage);
     setSearchParams(newSearchParams, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curPage, postsPerPage]);
 
   // Этот поддерживает актуальным состояние интерфейса в зависимости от URL
@@ -57,6 +58,7 @@ export const Footer = () => {
     if (postsPerPage !== postsPerPageFromParams) {
       setPostsPerPage(postsPerPageFromParams);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   const onChange = (current, pageSize) => {

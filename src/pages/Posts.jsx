@@ -19,7 +19,6 @@ const Posts = ({ authorId }) => {
   }
 
   useEffect(() => {
-    
     // Пагинация
     if (!searchParams.has('_page') || !searchParams.has('_limit')) {
       const newSearchParams = new URLSearchParams(searchParams);
@@ -32,7 +31,6 @@ const Posts = ({ authorId }) => {
 
     const asyncWrapper = async () => {
       try {
-
         // Пагинация
         const params = {
           _page: curPage,
@@ -58,6 +56,7 @@ const Posts = ({ authorId }) => {
       }
     };
     asyncWrapper();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authorId, searchParams]);
 
   return (
