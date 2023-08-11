@@ -31,8 +31,8 @@ const schema = yup.object().shape({
     .string()
     .min(3, 'Must be at least 3 characters or more!')
     .max(24, 'Must be 24 characters or less')
-    .notOneOf(['1234567890'], 'Invalid name')
-    .matches(/^[a-zA-Z\s]+$/, 'Invalid name')
+    .matches(/^[a-zA-Z0-9\s]+$/, 'Invalid name')
+    .matches(/^\S(.*\S)?$/, 'Too many spaces')
     .required('Required!'),
   message: yup
     .string()
