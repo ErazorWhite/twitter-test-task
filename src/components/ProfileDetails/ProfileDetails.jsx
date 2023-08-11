@@ -1,4 +1,3 @@
-import React, { useContext, useEffect, useState } from 'react';
 import { TfiLocationPin } from 'react-icons/tfi';
 import { AiOutlineLink } from 'react-icons/ai';
 import { BiCalendar } from 'react-icons/bi';
@@ -14,13 +13,10 @@ import {
   Img,
 } from './ProfileDetails.styled';
 import DateParser from 'utilities/dateParser';
-import { getNewsFeed } from 'api/mockAPI';
-import { PostsList } from 'components/PostsList/PostsList';
 import { Section } from 'components/Section/Section';
-import { useSearchParams } from 'react-router-dom';
 import defaultPhoto from 'images/img_not_found.jpg';
 import PropTypes from 'prop-types';
-import { PostsContext } from 'Layout/Layout';
+import Posts from 'pages/Posts';
 
 const ProfileDetails = ({
   profileDetails: {
@@ -37,39 +33,9 @@ const ProfileDetails = ({
     userId,
   },
 }) => {
-  const [posts, setPosts] = useState([]);
-  const [, setIsLoading] = useState(false);
   const { month, year } = DateParser(registeredAt);
-  const [searchParams] = useSearchParams();
   const accoutAvatar = avatar ? avatar : defaultPhoto;
   const accountBanner = banner ? banner : defaultPhoto;
-  const { setTotalPosts } = useContext(PostsContext);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const asyncWrapper = async () => {
-      try {
-        const params = {};
-        params.authorId = userId;
-
-        // Фильтрация
-        for (const [key, value] of searchParams.entries()) {
-          if (value) {
-            params[key] = value;
-          }
-        }
-
-        const { data, headers } = await getNewsFeed(params);
-        setTotalPosts(headers['x-total-count']); // json-server отдает total в заголовке
-        setPosts(data);
-      } catch (e) {
-        console.log(e.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    asyncWrapper();
-  }, [userId, searchParams, setTotalPosts]);
 
   return (
     <>
@@ -111,9 +77,7 @@ const ProfileDetails = ({
           </li>
         </FollowList>
       </Section>
-      <Section title={'Posts'}>
-        <PostsList posts={posts} />
-      </Section>
+      <Posts authorId={userId} />
     </>
   );
 };
