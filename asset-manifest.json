@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/twitter-test-task/static/css/main.2fd260cd.css",
-    "main.js": "/twitter-test-task/static/js/main.edbf34f1.js",
-    "static/js/919.e649488d.chunk.js": "/twitter-test-task/static/js/919.e649488d.chunk.js",
-    "static/js/879.3e73d898.chunk.js": "/twitter-test-task/static/js/879.3e73d898.chunk.js",
+    "main.css": "/twitter-test-task/static/css/main.c65e5213.css",
+    "main.js": "/twitter-test-task/static/js/main.cfb97323.js",
+    "static/js/602.4e798045.chunk.js": "/twitter-test-task/static/js/602.4e798045.chunk.js",
+    "static/js/879.32686238.chunk.js": "/twitter-test-task/static/js/879.32686238.chunk.js",
     "static/js/38.5f0fe4d5.chunk.js": "/twitter-test-task/static/js/38.5f0fe4d5.chunk.js",
     "static/js/161.351b86de.chunk.js": "/twitter-test-task/static/js/161.351b86de.chunk.js",
     "static/media/img_not_found.jpg": "/twitter-test-task/static/media/img_not_found.3717584c8c962ee91b9d.jpg",
     "index.html": "/twitter-test-task/index.html",
-    "main.2fd260cd.css.map": "/twitter-test-task/static/css/main.2fd260cd.css.map",
-    "main.edbf34f1.js.map": "/twitter-test-task/static/js/main.edbf34f1.js.map",
-    "919.e649488d.chunk.js.map": "/twitter-test-task/static/js/919.e649488d.chunk.js.map",
-    "879.3e73d898.chunk.js.map": "/twitter-test-task/static/js/879.3e73d898.chunk.js.map",
+    "main.c65e5213.css.map": "/twitter-test-task/static/css/main.c65e5213.css.map",
+    "main.cfb97323.js.map": "/twitter-test-task/static/js/main.cfb97323.js.map",
+    "602.4e798045.chunk.js.map": "/twitter-test-task/static/js/602.4e798045.chunk.js.map",
+    "879.32686238.chunk.js.map": "/twitter-test-task/static/js/879.32686238.chunk.js.map",
     "38.5f0fe4d5.chunk.js.map": "/twitter-test-task/static/js/38.5f0fe4d5.chunk.js.map",
     "161.351b86de.chunk.js.map": "/twitter-test-task/static/js/161.351b86de.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2fd260cd.css",
-    "static/js/main.edbf34f1.js"
+    "static/css/main.c65e5213.css",
+    "static/js/main.cfb97323.js"
   ]
 }
