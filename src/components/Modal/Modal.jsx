@@ -19,6 +19,7 @@ import { StyledErrorMessage, StyledClose } from './Modal.styled';
 import css from './Field.module.css';
 import { faker } from '@faker-js/faker';
 import { createNewPost } from 'api/mockAPI';
+import { toast } from 'react-toastify';
 
 const initialValues = {
   author: '',
@@ -75,9 +76,11 @@ export const Modal = ({ closeModal }) => {
     const author = value.author.trim();
     const message = value.message.trim();
     const newPost = { author, message, ...randoms };
-    
+
     await createNewPost(newPost);
-    
+
+    toast('🎉 Wow your post is awesome!');
+
     resetForm();
     closeModal();
   };

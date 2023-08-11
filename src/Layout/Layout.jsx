@@ -5,7 +5,9 @@ import { Main } from './Layout.styled';
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner';
 import { ScrollUp } from 'components/ScrollUp/ScrollUp';
 import { Footer } from './Footer/Footer';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+  
 export const PostsContext = React.createContext(null);
 
 export const Layout = () => {
@@ -14,6 +16,18 @@ export const Layout = () => {
   return (
     <>
       <PostsContext.Provider value={{ totalPosts, setTotalPosts }}>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <Header />
         <Main className="container">
           <Suspense fallback={<LoadingSpinner isLoading />}>
