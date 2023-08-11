@@ -7,7 +7,6 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { Modal } from 'components/Modal/Modal';
-import { useLocalStorage } from 'hooks/useLocalStorage';
 
 // Sort
 const options = [
@@ -22,11 +21,8 @@ export const Controls = ({ isDesktop }) => {
   const [searchParams, setSearchParams] = useSearchParams(); // Получаем параметры из URLSearchParams для фильтрации
   const [authorSearch, setAuthorSearch] = useState(''); // Для контролируемого Input Author
   const [querySearch, setQuerySearch] = useState(''); // Для контролируемого Input Query
-  const [sort, setSort] = useLocalStorage('SORT', options[0]); // Поиск в LocalStorage запоминает
+  const [sort, setSort] = useState(options[0]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [curPage, setCurPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useLocalStorage('PER_PAGE', 5); // PerPage в LocalStorage запоминает
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -34,20 +30,26 @@ export const Controls = ({ isDesktop }) => {
 
   // Обновляем URLSearchParams из SearchBar
   const updateSearchParams = useCallback(
-    (newSort = sort) => {
-      const params = {};
+    newSort => {
+      const newSearchParams = new URLSearchParams(searchParams);
 
-      params._page = curPage || 1;
-      params._limit = postsPerPage || 5;
-      if (authorSearch.length) params.author = authorSearch.trim();
-      if (querySearch.length) params.q = querySearch.trim();
-      if (newSort) {
-        params._sort = 'createdAt'; // сортировка по полю 'createdAt'
-        params._order = newSort.value; // порядок сортировки - asc или desc
+      if (authorSearch.length) {
+        newSearchParams.set('author', authorSearch.trim());
+      } else {
+        newSearchParams.delete('author');
       }
-      setSearchParams(params);
+      if (querySearch.length) {
+        newSearchParams.set('q', querySearch.trim());
+      } else {
+        newSearchParams.delete('q');
+      }
+      if (newSort) {
+        newSearchParams.set('_sort', 'createdAt');
+        newSearchParams.set('_order', newSort.value);
+      }
+      setSearchParams(newSearchParams);
     },
-    [curPage, postsPerPage, authorSearch, querySearch, sort, setSearchParams]
+    [searchParams, authorSearch, querySearch, setSearchParams]
   );
 
   // Хендлер для инпутов
@@ -61,28 +63,15 @@ export const Controls = ({ isDesktop }) => {
     updateSearchParams(e);
   };
 
-  // Перый useEffect нужен для того,
-  // чтобы проверять searchParams и, если необходимо, наполнять дефолтной информацией про пагинацию, а также сетать сортировку
-  // Работает только если searchParams пустой
-  useEffect(() => {
-    if (!searchParams.size && location.pathname !== '/profile') {
-      updateSearchParams();
-    }
-  }, []);
-
-  // Второй useEffect нужен на случай когда мы изменяем searchParams
+  // Этот useEffect нужен на случай когда мы изменяем searchParams
   // Он парсит searchParams и наполняет информацией инпуты и селекторы
   useEffect(() => {
-    setCurPage(searchParams.get('_page') ?? 1);
-    setPostsPerPage(searchParams.get('_limit') ?? 5);
     setAuthorSearch(searchParams.get('author') ?? '');
     setQuerySearch(searchParams.get('q') ?? '');
+
     const _sort = searchParams.get('_sort');
     const _order = searchParams.get('_order');
-
     let sortValue = null;
-
-    // Дальше выглядит не очень красиво, но пока не придумал как это сделать лучше
 
     // Если _sort равно 'createdAt' и _order равно 'asc', значит, сортировка по возрастанию
     if (_sort === 'createdAt' && _order === 'asc')
@@ -92,24 +81,23 @@ export const Controls = ({ isDesktop }) => {
       sortValue = options.find(opt => opt.value === 'desc');
 
     setSort(sortValue);
-  }, [searchParams, setSort, setPostsPerPage]);
+  }, [searchParams, setSort]);
 
   // Для /profile у нас пропадает Input Author, вместо него линк ← Go Back
   useEffect(() => {
     setIsProfilePage(location.pathname.startsWith('/profile'));
-    backLinkLocationRef.current = location.state?.from // Запоминаем куда возвращаться
+    backLinkLocationRef.current = location.state?.from
       ? location.state.from
-      : { pathname: '/', search: '' };
+      : { pathname: '/', search: '?_page=1&_limit=5' };
+
   }, [location]);
 
   // Очистка фильтрации
   const handleClear = () => {
     const params = {};
-    params._page = curPage;
-    params._limit = postsPerPage;
-    params._sort = 'createdAt'; // сортировка по полю 'createdAt'
-    params._order = 'asc'; // порядок сортировки - asc или desc
-    setSearchParams(params);
+    params._page = 1;
+    params._limit = 5;
+    setSearchParams(new URLSearchParams(params), { replace: true });
   };
 
   return (
