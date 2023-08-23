@@ -12,7 +12,7 @@ import {
   Text,
   Img,
 } from './ProfileDetails.styled';
-import DateParser from 'utilities/dateParser';
+import parseDateTime from 'utilities/parseDateTime';
 import { Section } from 'components/Section/Section';
 import defaultPhoto from 'images/img_not_found.jpg';
 import PropTypes from 'prop-types';
@@ -33,7 +33,7 @@ const ProfileDetails = ({
     userId,
   },
 }) => {
-  const { month, year } = DateParser(registeredAt);
+  const { month, year } = parseDateTime(registeredAt);
   const accoutAvatar = avatar ? avatar : defaultPhoto;
   const accountBanner = banner ? banner : defaultPhoto;
 

@@ -1,7 +1,7 @@
-import DateParser from "utilities/dateParser";
+import parseDateTime from 'utilities/parseDateTime';
 
-export const PostDate = ({createdAt}) => {
-  const { day, month, hours, minutes } = DateParser(createdAt);
+export const PostDate = ({ createdAt }) => {
+  const { day, month, hour, minute } = parseDateTime(createdAt);
 
   return (
     <>
@@ -10,7 +10,7 @@ export const PostDate = ({createdAt}) => {
       </p>
       <span>·</span>
       <p>
-        {hours}:{minutes} UTC
+        {hour}:{minute} UTC
       </p>
     </>
   );
