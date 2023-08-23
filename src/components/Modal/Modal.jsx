@@ -62,7 +62,7 @@ export const Modal = ({ closeModal }) => {
     }
   };
 
-  const GenerateRandomValues = () => {
+  const generateRandomValues = () => {
     const createdAt = new Date().toISOString();
     const avatar = faker.image.avatar();
     const image = faker.image.urlLoremFlickr({ category: 'cat' });
@@ -72,7 +72,7 @@ export const Modal = ({ closeModal }) => {
   };
 
   const handleSubmit = async (value, { resetForm }) => {
-    const randoms = GenerateRandomValues();
+    const randoms = generateRandomValues();
     const author = value.author.trim();
     const message = value.message.trim();
     const newPost = { author, message, ...randoms };
