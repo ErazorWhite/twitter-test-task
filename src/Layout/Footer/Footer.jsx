@@ -30,6 +30,10 @@ export const Footer = () => {
   const { totalPosts } = useContext(PostsContext);
 
   const onChange = (current, pageSize) => {
+    current =
+      pageSize === (parseInt(searchParams.get('_limit', 10)) || 5)
+        ? current
+        : 1;
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set('_page', current);
     newSearchParams.set('_limit', pageSize);
@@ -42,8 +46,8 @@ export const Footer = () => {
         <Pagination
           pageSizeOptions={['5', '10', '20', '50', '100']}
           showSizeChanger={5}
-          pageSize={searchParams.get('_limit', 10) || 5}
-          current={searchParams.get('_page', 10) || 1}
+          defaultPageSize={parseInt(searchParams.get('_limit', 10)) || 5}
+          defaultCurrent={parseInt(searchParams.get('_page', 10)) || 1}
           onChange={onChange}
           total={totalPosts}
           locale={localeInfo}
