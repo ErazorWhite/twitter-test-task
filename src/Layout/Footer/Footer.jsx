@@ -4,9 +4,9 @@ import Pagination from 'rc-pagination';
 import Select, { Option } from 'rc-select';
 import 'rc-pagination/assets/index.css';
 import '../../styles/rc-select.css';
-import { useSearchParams } from 'react-router-dom';
 import localeInfo from './locale';
 import { PostsContext } from 'Layout/Layout';
+import { usePaginationParams } from 'hooks/usePaginationParams';
 
 // Тут немного приколов из-за связки rc-pagination + rc-select
 
@@ -26,18 +26,12 @@ SelectWrapper.Option = Option; // rc-pagination ожидает Select с под�
 // Check the render method of `Options`.
 
 export const Footer = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [{ page, limit }, setPaginationData] = usePaginationParams();
   const { totalPosts } = useContext(PostsContext);
 
   const onChange = (current, pageSize) => {
-    current =
-      pageSize === (parseInt(searchParams.get('_limit'), 10) || 5)
-        ? current
-        : 1;
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set('_page', current);
-    newSearchParams.set('_limit', pageSize);
-    setSearchParams(newSearchParams);
+    current = pageSize === limit ? current : 1;
+    setPaginationData(current, pageSize);
   };
 
   return (
@@ -46,8 +40,8 @@ export const Footer = () => {
         <Pagination
           pageSizeOptions={['5', '10', '20', '50', '100']}
           showSizeChanger={5}
-          pageSize={parseInt(searchParams.get('_limit'), 10) || 5}
-          current={parseInt(searchParams.get('_page'), 10) || 1}
+          pageSize={limit}
+          current={page}
           onChange={onChange}
           total={totalPosts}
           locale={localeInfo}
