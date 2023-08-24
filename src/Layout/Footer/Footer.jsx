@@ -46,8 +46,8 @@ export const Footer = () => {
         <Pagination
           pageSizeOptions={['5', '10', '20', '50', '100']}
           showSizeChanger={5}
-          pageSize={parseInt(searchParams.get('_limit', 10)) || 5}
-          current={parseInt(searchParams.get('_page', 10)) || 1}
+          pageSize={parseInt(searchParams.get('_limit'), 10) || 5}
+          current={parseInt(searchParams.get('_page'), 10) || 1}
           onChange={onChange}
           total={totalPosts}
           locale={localeInfo}
