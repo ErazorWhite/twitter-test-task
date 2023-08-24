@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { StyledFooter } from './Footer.styled';
+import { PaginationContainer, StyledFooter } from './Footer.styled';
 import Pagination from 'rc-pagination';
 import Select, { Option } from 'rc-select';
 import 'rc-pagination/assets/index.css';
@@ -28,57 +28,28 @@ SelectWrapper.Option = Option; // rc-pagination ожидает Select с под�
 export const Footer = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { totalPosts } = useContext(PostsContext);
-  const [curPage, setCurPage] = useState(parseSearch('_page', 1));
-  const [postsPerPage, setPostsPerPage] = useState(parseSearch('_limit', 5));
-
-  function parseSearch(searchParam, defaultValue) {
-    return parseInt(searchParams.get(searchParam), 10) || defaultValue;
-  }
-
-  // Следующие два useEffect раньше приводили к бесконечному циклу рендера,
-  // но после добавления условий проблема, пусть и не идеально, но решена
-
-  // Этот поддерживает актуальным URL в зависимости от curPage, postsPerPage
-  useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set('_page', curPage);
-    newSearchParams.set('_limit', postsPerPage);
-    setSearchParams(newSearchParams, { replace: true });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [curPage, postsPerPage]);
-
-  // Этот поддерживает актуальным состояние интерфейса в зависимости от URL
-  useEffect(() => {
-    const currentPageFromParams = parseSearch('_page', 1);
-    const postsPerPageFromParams = parseSearch('_limit', 5);
-
-    if (curPage !== currentPageFromParams) {
-      setCurPage(currentPageFromParams);
-    }
-    if (postsPerPage !== postsPerPageFromParams) {
-      setPostsPerPage(postsPerPageFromParams);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
 
   const onChange = (current, pageSize) => {
-    setCurPage(postsPerPage !== pageSize ? 1 : current);
-    setPostsPerPage(pageSize);
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('_page', current);
+    newSearchParams.set('_limit', pageSize);
+    setSearchParams(newSearchParams);
   };
 
   return (
     <StyledFooter>
-      <Pagination
-        pageSizeOptions={['5', '10', '20', '50', '100']}
-        showQuickJumper
-        showSizeChanger
-        pageSize={postsPerPage}
-        current={curPage}
-        onChange={onChange}
-        total={totalPosts}
-        locale={localeInfo}
-        selectComponentClass={SelectWrapper}
-      />
+      <PaginationContainer>
+        <Pagination
+          pageSizeOptions={['5', '10', '20', '50', '100']}
+          showSizeChanger={5}
+          pageSize={searchParams.get('_limit', 10) || 5}
+          current={searchParams.get('_page', 10) || 1}
+          onChange={onChange}
+          total={totalPosts}
+          locale={localeInfo}
+          selectComponentClass={SelectWrapper}
+        />
+      </PaginationContainer>
     </StyledFooter>
   );
 };

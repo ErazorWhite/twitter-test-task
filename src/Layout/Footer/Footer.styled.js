@@ -10,3 +10,7 @@ export const StyledFooter = styled.footer`
   align-items: center;
   gap: 0.2rem;
 `;
+
+export const PaginationContainer = styled.div`
+  max-width: 800px;
+`;
