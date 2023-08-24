@@ -1,3 +1,5 @@
+
+let formatterInstance;
 const dateOptions = {
   day: 'numeric',
   month: 'long',
@@ -8,20 +10,18 @@ const dateOptions = {
   timeZone: 'UTC',
 };
 
-const parseDate = createdAt => {
+function getFormatter() {
+  if (!formatterInstance) {
+    formatterInstance = new Intl.DateTimeFormat('en-US', dateOptions);
+  }
+  return formatterInstance;
+}
+
+
+export const parseDateTime = createdAt => {
   const date = new Date(createdAt);
-  const formatter = new Intl.DateTimeFormat('en-US', dateOptions);
-
-  const parts = formatter.formatToParts(date);
-
-  const result = parts
-    .filter(({ type }) => Object.keys(dateOptions).includes(type))
-    .reduce(
-      (result, { type, value }) => ({...result, [type]: value }),
-      {}
-    );
+  const parts = getFormatter().formatToParts(date);
+  const result = parts.reduce((result, { type, value }) => ({ ...result, [type]: value }), {});
 
   return result;
 };
-
-export default parseDate;

@@ -1,4 +1,4 @@
-import parseDateTime from 'utilities/parseDateTime';
+import {parseDateTime} from 'utilities/parseDateTime';
 
 export const PostDate = ({ createdAt }) => {
   const { day, month, hour, minute } = parseDateTime(createdAt);

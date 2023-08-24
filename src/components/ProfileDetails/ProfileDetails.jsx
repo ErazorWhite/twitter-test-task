@@ -12,7 +12,7 @@ import {
   Text,
   Img,
 } from './ProfileDetails.styled';
-import parseDateTime from 'utilities/parseDateTime';
+import {parseDateTime} from 'utilities/parseDateTime';
 import { Section } from 'components/Section/Section';
 import defaultPhoto from 'images/img_not_found.jpg';
 import PropTypes from 'prop-types';
