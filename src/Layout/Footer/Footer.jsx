@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { PaginationContainer, StyledFooter } from './Footer.styled';
 import Pagination from 'rc-pagination';
 import Select, { Option } from 'rc-select';
