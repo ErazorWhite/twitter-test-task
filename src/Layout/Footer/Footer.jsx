@@ -31,7 +31,7 @@ export const Footer = () => {
 
   const onChange = (current, pageSize) => {
     current =
-      pageSize === (parseInt(searchParams.get('_limit', 10)) || 5)
+      pageSize === (parseInt(searchParams.get('_limit'), 10) || 5)
         ? current
         : 1;
     const newSearchParams = new URLSearchParams(searchParams);
