@@ -5,26 +5,20 @@ import { PostsList } from 'components/PostsList/PostsList';
 import { useSearchParams } from 'react-router-dom';
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner';
 import { PostsContext } from 'Layout/Layout';
+import { usePaginationParams } from 'hooks/usePaginationParams';
+import PropTypes from 'prop-types';
 
 const Posts = ({ authorId }) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { setTotalPosts } = useContext(PostsContext);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [curPage] = useState(parseSearch('_page', 1));
-  const [postsPerPage] = useState(parseSearch('_limit', 5));
-
-  function parseSearch(searchParam, defaultValue) {
-    return parseInt(searchParams.get(searchParam), 10) || defaultValue;
-  }
+  const [searchParams] = useSearchParams();
+  const [{ page, limit }, setPaginationData] = usePaginationParams();
 
   useEffect(() => {
     // Пагинация
     if (!searchParams.has('_page') || !searchParams.has('_limit')) {
-      const newSearchParams = new URLSearchParams(searchParams);
-      newSearchParams.set('_page', curPage);
-      newSearchParams.set('_limit', postsPerPage);
-      setSearchParams(newSearchParams, { replace: true });
+      setPaginationData(1, 5);
     }
 
     setIsLoading(true);
@@ -33,8 +27,8 @@ const Posts = ({ authorId }) => {
       try {
         // Пагинация
         const params = {
-          _page: curPage,
-          _limit: postsPerPage,
+          _page: page,
+          _limit: limit,
         };
 
         // Фильтрация
@@ -67,6 +61,10 @@ const Posts = ({ authorId }) => {
       </Section>
     </>
   );
+};
+
+Posts.propTypes = {
+  authorId: PropTypes.string,
 };
 
 export default Posts;
