@@ -97,7 +97,7 @@ export const Controls = ({ isDesktop }) => {
     const params = {};
     params._page = 1;
     params._limit = 5;
-    setSearchParams(new URLSearchParams(params), { replace: true });
+    setSearchParams(new URLSearchParams(params));
   };
 
   return (
