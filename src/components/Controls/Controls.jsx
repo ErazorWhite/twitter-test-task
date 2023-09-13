@@ -95,8 +95,6 @@ export const Controls = ({ isDesktop }) => {
   // Очистка фильтрации
   const handleClear = () => {
     const params = {};
-    params._page = 1;
-    params._limit = 5;
     setSearchParams(new URLSearchParams(params));
   };
 

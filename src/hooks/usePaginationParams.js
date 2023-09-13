@@ -13,7 +13,7 @@ export const usePaginationParams = () => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set('_page', page);
     newSearchParams.set('_limit', limit);
-    setSearchParams(newSearchParams);
+    setSearchParams(newSearchParams, {replace: true});
   };
 
   return [paginationData(), setPaginationData];

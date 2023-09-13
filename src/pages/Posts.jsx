@@ -17,9 +17,6 @@ const Posts = ({ authorId }) => {
 
   useEffect(() => {
     // Пагинация
-    if (!searchParams.has('_page') || !searchParams.has('_limit')) {
-      setPaginationData(1, 5);
-    }
 
     setIsLoading(true);
 
