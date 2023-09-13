@@ -13,10 +13,9 @@ const Posts = ({ authorId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { setTotalPosts } = useContext(PostsContext);
   const [searchParams] = useSearchParams();
-  const [{ page, limit }, setPaginationData] = usePaginationParams();
+  const [{ page, limit }] = usePaginationParams();
 
   useEffect(() => {
-    // Пагинация
 
     setIsLoading(true);
 
