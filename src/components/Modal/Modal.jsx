@@ -11,7 +11,7 @@ import {
   CharacterCounter,
 } from './Modal.styled';
 import ReactDOM from 'react-dom';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Backdrop from 'components/Backdrop/Backdrop';
 import * as yup from 'yup';
@@ -20,6 +20,7 @@ import css from './Field.module.css';
 import { faker } from '@faker-js/faker';
 import { createNewPost } from 'api/mockAPI';
 import { toast } from 'react-toastify';
+import { PostsContext } from 'Layout/Layout';
 
 const initialValues = {
   author: '',
@@ -42,6 +43,7 @@ const schema = yup.object().shape({
 
 export const Modal = ({ closeModal }) => {
   const portalRoot = document.getElementById('modal-root');
+  const { setLocalPosts } = useContext(PostsContext);
 
   useEffect(() => {
     const handleEsc = e => {
@@ -81,6 +83,7 @@ export const Modal = ({ closeModal }) => {
 
     toast('🎉 Wow your post is awesome!');
 
+    setLocalPosts(prevPosts => [newPost, ...prevPosts]);
     resetForm();
     closeModal();
   };

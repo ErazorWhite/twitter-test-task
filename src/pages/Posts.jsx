@@ -9,9 +9,8 @@ import { usePaginationParams } from 'hooks/usePaginationParams';
 import PropTypes from 'prop-types';
 
 const Posts = ({ authorId }) => {
-  const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { setTotalPosts } = useContext(PostsContext);
+  const { setTotalPosts, localPosts, setLocalPosts } = useContext(PostsContext);
   const [searchParams] = useSearchParams();
   const [{ page, limit }] = usePaginationParams();
 
@@ -38,7 +37,8 @@ const Posts = ({ authorId }) => {
 
         const { data, headers } = await getNewsFeed(params);
         setTotalPosts(headers['x-total-count']);
-        setPosts(data);
+        setLocalPosts(data)
+        // setPosts(data);
       } catch (e) {
         console.log(e.message);
       } finally {
@@ -53,7 +53,7 @@ const Posts = ({ authorId }) => {
     <>
       {isLoading && <LoadingSpinner isLoading={isLoading} />}
       <Section title="Posts">
-        {<PostsList posts={posts} isLoading={isLoading} />}
+        {<PostsList posts={localPosts} isLoading={isLoading} />}
       </Section>
     </>
   );

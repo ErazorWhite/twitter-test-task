@@ -7,15 +7,18 @@ import { ScrollUp } from 'components/ScrollUp/ScrollUp';
 import { Footer } from './Footer/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-  
+
 export const PostsContext = React.createContext(null);
 
 export const Layout = () => {
   const [totalPosts, setTotalPosts] = useState(null);
+  const [localPosts, setLocalPosts] = useState([]);
 
   return (
     <>
-      <PostsContext.Provider value={{ totalPosts, setTotalPosts }}>
+      <PostsContext.Provider
+        value={{ totalPosts, setTotalPosts, localPosts, setLocalPosts }}
+      >
         <ToastContainer
           position="top-right"
           autoClose={5000}
