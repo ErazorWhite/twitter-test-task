@@ -88,7 +88,7 @@ export const Controls = ({ isDesktop }) => {
     setIsProfilePage(location.pathname.startsWith('/profile'));
     backLinkLocationRef.current = location.state?.from
       ? location.state.from
-      : { pathname: '/', search: '?_page=1&_limit=5' };
+      : { pathname: '/'};
 
   }, [location]);
 

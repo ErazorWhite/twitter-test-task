@@ -11,9 +11,21 @@ export const usePaginationParams = () => {
 
   const setPaginationData = (page, limit) => {
     const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set('_page', page);
-    newSearchParams.set('_limit', limit);
-    setSearchParams(newSearchParams, {replace: true});
+
+    // Set parameter only if it's not a default value
+    if (page !== 1) {
+      newSearchParams.set('_page', page);
+    } else {
+      newSearchParams.delete('_page'); // Remove _page if it's the default value (1)
+    }
+
+    if (limit !== 5) {
+      newSearchParams.set('_limit', limit);
+    } else {
+      newSearchParams.delete('_limit'); // Remove _limit if it's the default value (5)
+    }
+
+    setSearchParams(newSearchParams);
   };
 
   return [paginationData(), setPaginationData];
