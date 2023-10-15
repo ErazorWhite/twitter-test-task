@@ -85,7 +85,6 @@ export const Modal = ({ closeModal }) => {
 
     toast('🎉 Wow your post is awesome!');
 
-    console.log(location.pathname);
     if (
       !location.pathname.startsWith('/profile') ||
       location.pathname.startsWith(`/profile/${author}`)      
