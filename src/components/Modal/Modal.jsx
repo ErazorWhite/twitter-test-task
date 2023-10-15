@@ -21,6 +21,7 @@ import { faker } from '@faker-js/faker';
 import { createNewPost } from 'api/mockAPI';
 import { toast } from 'react-toastify';
 import { PostsContext } from 'Layout/Layout';
+import { useLocation } from 'react-router-dom';
 
 const initialValues = {
   author: '',
@@ -30,7 +31,7 @@ const initialValues = {
 const schema = yup.object().shape({
   author: yup
     .string()
-    .min(3, 'Must be at least 3 characters or more!')
+    .min(2, 'Must be at least 2 characters or more!')
     .max(24, 'Must be 24 characters or less')
     .matches(/^[a-zA-Z0-9\s]+$/, 'Invalid name')
     .matches(/^\S(.*\S)?$/, 'Too many spaces')
@@ -44,6 +45,7 @@ const schema = yup.object().shape({
 export const Modal = ({ closeModal }) => {
   const portalRoot = document.getElementById('modal-root');
   const { setLocalPosts } = useContext(PostsContext);
+  const location = useLocation();
 
   useEffect(() => {
     const handleEsc = e => {
@@ -83,7 +85,13 @@ export const Modal = ({ closeModal }) => {
 
     toast('🎉 Wow your post is awesome!');
 
-    setLocalPosts(prevPosts => [newPost, ...prevPosts]);
+    console.log(location.pathname);
+    if (
+      !location.pathname.startsWith('/profile') ||
+      location.pathname.startsWith(`/profile/${author}`)      
+    )
+      setLocalPosts(prevPosts => [newPost, ...prevPosts]);
+
     resetForm();
     closeModal();
   };
