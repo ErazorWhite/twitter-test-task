@@ -44,7 +44,8 @@ const schema = yup.object().shape({
 
 export const Modal = ({ closeModal }) => {
   const portalRoot = document.getElementById('modal-root');
-  const { setLocalPosts } = useContext(PostsContext);
+  const { setTotalPosts, setLocalPosts } = useContext(PostsContext);
+
   const location = useLocation();
 
   useEffect(() => {
@@ -87,9 +88,11 @@ export const Modal = ({ closeModal }) => {
 
     if (
       !location.pathname.startsWith('/profile') ||
-      location.pathname.startsWith(`/profile/${author}`)      
-    )
+      location.pathname.startsWith(`/profile/${author}`)
+    ) {
       setLocalPosts(prevPosts => [newPost, ...prevPosts]);
+    }
+    setTotalPosts(prevTotalPosts => parseInt(prevTotalPosts) + 1);
 
     resetForm();
     closeModal();
