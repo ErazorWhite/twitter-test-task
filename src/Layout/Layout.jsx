@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useMemo, useState } from 'react';
 import { Header } from './Header/Header';
 import { Main } from './Layout.styled';
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner';
@@ -10,14 +10,26 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const PostsContext = React.createContext(null);
 
+const MemoizedHeader = React.memo(Header);
+const MemoizedMain = React.memo(Main);
+const MemoizedFooter = React.memo(Footer);
+
 export const Layout = () => {
   const [totalPosts, setTotalPosts] = useState(null);
   const [localPosts, setLocalPosts] = useState([]);
 
+  const memoizedTotalPosts = useMemo(() => totalPosts, [totalPosts]);
+  const memoizedLocalPosts = useMemo(() => localPosts, [localPosts]);
+
   return (
     <>
       <PostsContext.Provider
-        value={{ totalPosts, setTotalPosts, localPosts, setLocalPosts }}
+        value={{
+          totalPosts: memoizedTotalPosts,
+          setTotalPosts,
+          localPosts: memoizedLocalPosts,
+          setLocalPosts,
+        }}
       >
         <ToastContainer
           position="top-right"
@@ -31,14 +43,14 @@ export const Layout = () => {
           pauseOnHover
           theme="dark"
         />
-        <Header />
-        <Main className="container">
+        <MemoizedHeader />
+        <MemoizedMain className="container">
           <Suspense fallback={<LoadingSpinner isLoading />}>
             <Outlet />
             <ScrollUp />
           </Suspense>
-        </Main>
-        <Footer />
+        </MemoizedMain>
+        <MemoizedFooter />
       </PostsContext.Provider>
     </>
   );
