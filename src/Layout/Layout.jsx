@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import React, { Suspense, useMemo, useState } from 'react';
+import React, { createContext, memo, Suspense, useMemo, useState } from 'react';
 import { Header } from './Header/Header';
 import { Main } from './Layout.styled';
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner';
@@ -8,11 +8,11 @@ import { Footer } from './Footer/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const PostsContext = React.createContext(null);
+export const PostsContext = createContext(null);
 
-const MemoizedHeader = React.memo(Header);
-const MemoizedMain = React.memo(Main);
-const MemoizedFooter = React.memo(Footer);
+const MemoizedHeader = memo(Header);
+const MemoizedMain = memo(Main);
+const MemoizedFooter = memo(Footer);
 
 export const Layout = () => {
   const [totalPosts, setTotalPosts] = useState(null);
