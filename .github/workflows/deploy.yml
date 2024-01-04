@@ -8,6 +8,14 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.15.0' # Замените на вашу версию Node.js
+
+      - name: Clear npm cache
+        run: npm cache clean --force
+
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
 
