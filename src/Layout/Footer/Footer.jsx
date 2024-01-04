@@ -52,4 +52,4 @@ const Footer = () => {
   );
 };
 
-export const MemoziedFooter = memo(Footer);
+export const MemoizedFooter = memo(Footer);
