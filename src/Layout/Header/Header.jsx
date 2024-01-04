@@ -3,9 +3,9 @@ import { StyledHeader, A, Button } from './Header.styled';
 import { Mobile, Desktop } from 'utilities/DeviceTypeDeterminant';
 import { Controls } from 'components/Controls/Controls';
 import { MobileMenu } from 'Layout/MobileMenu/MobileMenu';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
-export const Header = () => {
+const Header = () => {
   const [mobileMenuIsHidden, setMobileMenuIsHidden] = useState(true);
   const handleBurgerClick = () => {
     setMobileMenuIsHidden(!mobileMenuIsHidden);
@@ -30,3 +30,5 @@ export const Header = () => {
     </StyledHeader>
   );
 };
+
+export const MemoizedHeader = memo(Header);

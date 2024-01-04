@@ -40,7 +40,7 @@ const Posts = ({ authorId }) => {
         setLocalPosts(data)
         // setPosts(data);
       } catch (e) {
-        console.log(e.message);
+        console.error(e.message);
       } finally {
         setIsLoading(false);
       }

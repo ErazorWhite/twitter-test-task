@@ -81,7 +81,7 @@ export const Controls = ({ isDesktop }) => {
       sortValue = options.find(opt => opt.value === 'desc');
 
     setSort(sortValue);
-  }, [searchParams, setSort]);
+  }, [searchParams]);
 
   // Для /profile у нас пропадает Input Author, вместо него линк ← Go Back
   useEffect(() => {

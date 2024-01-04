@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, memo } from 'react';
 import { PaginationContainer, StyledFooter } from './Footer.styled';
 import Pagination from 'rc-pagination';
 import Select, { Option } from 'rc-select';
@@ -25,7 +25,7 @@ SelectWrapper.Option = Option; // rc-pagination ожидает Select с под�
 // your component from the file it's defined in, or you might have mixed up default and named imports.
 // Check the render method of `Options`.
 
-export const Footer = () => {
+const Footer = () => {
   const [{ page, limit }, setPaginationData] = usePaginationParams();
   const { totalPosts } = useContext(PostsContext);
 
@@ -51,3 +51,5 @@ export const Footer = () => {
     </StyledFooter>
   );
 };
+
+export const MemoziedFooter = memo(Footer);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MdOutlineKeyboardDoubleArrowUp } from 'react-icons/md';
 import { ScrollUpBox, ScrollUpButton } from './ScrollUp.styled';
 import { throttle } from 'lodash';
+
 export const ScrollUp = () => {
   const [isVisible, setIsVisible] = useState(false);
 
