@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const mockAPI = axios.create({
-  baseURL: 'https://murmuring-spire-16258-e111b21c7a09.herokuapp.com/api',
+  baseURL: 'https://node-app-coss.onrender.com/api',
   headers: { 'Content-Type': 'application/json' },
 });
 
