@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunktwitter_test_task=self.webpackChunktwitter_test_task||[]).push([[520],{4520:function(t,e,s){s.r(e);var n=s(1087),r=s(184);e.default=function(){return(0,r.jsxs)("div",{children:["Oops, not found. Go ",(0,r.jsx)(n.rU,{to:"/",children:"home"})]})}}}]);
+//# sourceMappingURL=520.00f7e975.chunk.js.map

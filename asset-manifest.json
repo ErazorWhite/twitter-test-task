@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/twitter-test-task/static/css/main.ae5bf3d0.css",
-    "main.js": "/twitter-test-task/static/js/main.173c37b7.js",
-    "static/js/602.50105073.chunk.js": "/twitter-test-task/static/js/602.50105073.chunk.js",
-    "static/js/879.3411efaf.chunk.js": "/twitter-test-task/static/js/879.3411efaf.chunk.js",
-    "static/js/38.5f0fe4d5.chunk.js": "/twitter-test-task/static/js/38.5f0fe4d5.chunk.js",
+    "main.js": "/twitter-test-task/static/js/main.f582c961.js",
+    "static/js/602.3e0ab740.chunk.js": "/twitter-test-task/static/js/602.3e0ab740.chunk.js",
+    "static/js/879.42c2f2e1.chunk.js": "/twitter-test-task/static/js/879.42c2f2e1.chunk.js",
+    "static/js/520.00f7e975.chunk.js": "/twitter-test-task/static/js/520.00f7e975.chunk.js",
     "static/js/161.351b86de.chunk.js": "/twitter-test-task/static/js/161.351b86de.chunk.js",
     "static/media/img_not_found.jpg": "/twitter-test-task/static/media/img_not_found.3717584c8c962ee91b9d.jpg",
     "index.html": "/twitter-test-task/index.html",
     "main.ae5bf3d0.css.map": "/twitter-test-task/static/css/main.ae5bf3d0.css.map",
-    "main.173c37b7.js.map": "/twitter-test-task/static/js/main.173c37b7.js.map",
-    "602.50105073.chunk.js.map": "/twitter-test-task/static/js/602.50105073.chunk.js.map",
-    "879.3411efaf.chunk.js.map": "/twitter-test-task/static/js/879.3411efaf.chunk.js.map",
-    "38.5f0fe4d5.chunk.js.map": "/twitter-test-task/static/js/38.5f0fe4d5.chunk.js.map",
+    "main.f582c961.js.map": "/twitter-test-task/static/js/main.f582c961.js.map",
+    "602.3e0ab740.chunk.js.map": "/twitter-test-task/static/js/602.3e0ab740.chunk.js.map",
+    "879.42c2f2e1.chunk.js.map": "/twitter-test-task/static/js/879.42c2f2e1.chunk.js.map",
+    "520.00f7e975.chunk.js.map": "/twitter-test-task/static/js/520.00f7e975.chunk.js.map",
     "161.351b86de.chunk.js.map": "/twitter-test-task/static/js/161.351b86de.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ae5bf3d0.css",
-    "static/js/main.173c37b7.js"
+    "static/js/main.f582c961.js"
   ]
 }
